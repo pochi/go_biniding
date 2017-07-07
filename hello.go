@@ -5,7 +5,10 @@ package main
 #include "hello.h"
 */
 import "C"
+import "unsafe"
 
 func main() {
-	C.hello()
+	str := C.CString("Hello,  cgo")
+	defer C.free(unsafe.Pointer(str))
+	C.hello(str)
 }

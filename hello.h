@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void hello();
+void hello(char*);
 
 #endif /* _HELLO_H_ */

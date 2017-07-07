@@ -1,5 +1,5 @@
 #include "hello.h"
 
-void hello() {
-  printf("%s\n", "Hello, CGO");
+void hello(char* message) {
+  printf("%s\n", message);
 }
