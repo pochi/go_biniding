@@ -5,9 +5,18 @@ package main
 #include "hello.h"
 */
 import "C"
-import "unsafe"
-import "fmt"
-import "io/ioutil"
+
+import (
+	"unsafe"
+	"fmt"
+	"os"
+	"io/ioutil"
+	"image"
+	_ "image/png"
+	_ "image/jpeg"	
+)
+
+const BUFSIZE = 1024
 
 /*
   - TODO 1: loop for specific dir - 
@@ -21,6 +30,21 @@ func main() {
 	dir := "./images"
 	files, _ := ioutil.ReadDir(dir)
 	for _, f := range files {
-		fmt.Println(f.Name())
+		func() {
+			file, err := os.Open(dir + "/" + f.Name())
+			defer file.Close()
+			if err != nil {
+				panic(err)
+			}
+
+			for {
+				imageData, imageType, err := image.Decode(file)
+				if err != nil {
+					break
+				}
+				fmt.Println(imageData)
+				fmt.Println(imageType)
+			}
+		}()
 	}
 }
